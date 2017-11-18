@@ -53,7 +53,7 @@ public class MainPageServlet extends HttpServlet {
 		}
 		List<Artist> artists = SpotifyAPI.getArtists(request.getParameter("artist"), accessToken);
 		request.setAttribute("artists", artists);
-		
+
 		response.setContentType("text/html");
 		RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("/spotifyArtistsSearchPage.jsp");
 		dispatcher.forward(request, response);

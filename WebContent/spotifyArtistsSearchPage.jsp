@@ -19,8 +19,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-	<div style="margin-top:20pt;">
-		<div class="col-lg-6">
+	<div style="margin-top: 20pt;">
+		<div class="col-lg-6" style="width:100%;">
 			<div class="input-group">
 				<form method="post">
 					<span class="input-group-btn"> <input type="text"
@@ -30,12 +30,16 @@
 					</span>
 				</form>
 			</div>
-			
+
 		</div>
-		<div>
-	<br>
-	<div>hi
+	</div><br>
+	<div style="margin-top: 20pt;">
+		<c:forEach var="artist" items="${artists}">
+			
+			<a href="artist?artist=${artist.getId()}"><br><img src="${artist.getImages().get(0).getUrl()}" style="height:150pt;">
+			<br>${artist.getName()}<br></a>
+		</c:forEach>
 	</div>
-	
+
 </body>
 </html>

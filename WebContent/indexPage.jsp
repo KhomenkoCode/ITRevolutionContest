@@ -29,7 +29,8 @@
 
 								<div class="inner cover">
 								
-									<h1 class="cover-heading">Github Issue Browser</h1>
+									<h1 class="cover-heading">Ratings for Spotify Artist</h1>
+									<p >Simple way to discover new music and artists based on our revolutionary rating system</p>
 									<p class="lead">Hey, we need to authenticate you through Spotify.</p>
 									<p class="lead">
 										<a

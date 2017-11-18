@@ -69,6 +69,7 @@ public class ArtistPageServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
         Cookie[] cookies = request.getCookies();
         String accessToken = null;
 
@@ -83,9 +84,11 @@ public class ArtistPageServlet extends HttpServlet {
             response.sendRedirect("main");
             return;
         }
-        List<Artist> artists = SpotifyAPI.getArtists(request.getParameter("artist"), accessToken);
-        request.setAttribute("artists", artists);
+        System.out.println(request.getParameter("artist_post"));
+        List<Artist> artists = SpotifyAPI.getArtists(request.getParameter("artist_post"), accessToken);
+
         if (artists != null) {
+            request.setAttribute("artists", artists);
             List<List<Track>> topTracksByArtists = new ArrayList<List<Track>>();
             Iterator<Artist> artistsIter = artists.iterator();
             while (artistsIter.hasNext()) {

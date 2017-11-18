@@ -1,6 +1,9 @@
 package main.java;
 
+import com.wrapper.spotify.models.Artist;
+
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MainPageServlet
  */
-@WebServlet("/album")
+@WebServlet("/artist")
 public class ArtistPageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -38,14 +41,18 @@ public class ArtistPageServlet extends HttpServlet {
             response.sendRedirect("main");
             return;
         }
+        String searchedArtist = request.getParameter("artist");
 
 
+        if (searchedArtist!=null) {
+            Artist artist = SpotifyAPI.getArtistInfo(searchedArtist, accessToken);
+            request.setAttribute("artists", artist);
 
-
+        }
 
 
         response.setContentType("text/html");
-        RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("/mainPage.jsp");
+        RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("/spotifyArtistOverview.jsp");
         dispatcher.forward(request, response);
 
     }

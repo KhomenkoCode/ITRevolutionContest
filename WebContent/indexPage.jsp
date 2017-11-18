@@ -13,15 +13,40 @@
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Title</title>
-<link rel="stylesheet" href="<c:url value="/static/css/stars.css"/>"
-	type="text/css">
-<link rel="stylesheet" href="<c:url value="/static/css/formval.css"/>"
-	type="text/css">
 <link href="static/css/bootstrap.min.css" rel="stylesheet">
-<link href="static/css/starter-template.css" rel="stylesheet">
+    <link href="static/css/cover.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="static/favicon.ico"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-	
-	Hello wrld!
+	<div class="site-wrapper">
+
+						<div class="site-wrapper-inner">
+
+							<div class="cover-container">
+
+
+
+								<div class="inner cover">
+								
+									<h1 class="cover-heading">Github Issue Browser</h1>
+									<p class="lead">Hey, we need to authenticate you through Spotify.</p>
+									<p class="lead">
+										<a
+											href="
+											https://accounts.spotify.com/authorize/?client_id=${clientID}&response_type=code&redirect_uri=${redirectLink}
+											"
+											class="btn btn-lg btn-secondary">Connect to Spotify</a>
+									</p>
+									
+								</div>
+
+
+
+							</div>
+
+						</div>
+
+					</div>
 </body>
 </html>

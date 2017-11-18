@@ -6,9 +6,15 @@
 <hibernate-mapping package="main.java.databasetables">
   <class name="TArtists" table="tartists">
     <id column="spotify_artist_id" name="spotify_artist_id" type="java.lang.String">
-      <generator class="native" />
+      <generator class="identity" />
     </id>
     <property column="artist_name" name="artist_name" type="java.lang.String"/>
-
+	<set name="ratings" table="tratings"
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="spotify_artist_id" not-null="true" />
+            </key>
+            <one-to-many class="main.java.databasetables.TRatings" />
+        </set>
   </class>
 </hibernate-mapping>

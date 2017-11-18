@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.Track;
 
+import main.java.databasetables.TRatings;
+
 /**
  * Servlet implementation class MainPageServlet
  */
@@ -58,6 +60,12 @@ public class MainPageServlet extends HttpServlet {
 		
 		if (artists != null) {
 			request.setAttribute("artists", artists);
+			
+			RatingDAO.setRating(SpotifyAPI.getCurrentUser(accessToken), artists.get(0), 10);
+			List<TRatings> rateList = RatingDAO.getRatings(SpotifyAPI.getCurrentUser(accessToken).getId(), artists.get(0).getId());
+			
+			System.out.println(rateList.size());
+			
 			List<List<Track>> topTracksByArtists = new ArrayList<List<Track>>();
 			Iterator<Artist> artistsIter = artists.iterator();
 			while (artistsIter.hasNext()) {
@@ -65,9 +73,9 @@ public class MainPageServlet extends HttpServlet {
 				List<Track> topTracksOfCurrArtist = SpotifyAPI.getTopTracks(accessToken, currArtist.getId());
 				topTracksByArtists.add(topTracksOfCurrArtist);
 			}
-			
 			request.setAttribute("topTracksByArtists", topTracksByArtists);
 		}
+		
 		
 		
 		response.setContentType("text/html");

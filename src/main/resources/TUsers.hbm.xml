@@ -6,9 +6,16 @@
 <hibernate-mapping package="main.java.databasetables">
   <class name="TUsers" table="tusers">
     <id column="user_id" name="user_id" type="java.lang.String">
-      <generator class="native" />
+    <generator class="identity"/>
     </id>
     <property column="username" name="username" type="java.lang.String"/>
 
+	<set name="ratings" table="tratings"
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="main.java.databasetables.TRatings" />
+        </set>
   </class>
 </hibernate-mapping>

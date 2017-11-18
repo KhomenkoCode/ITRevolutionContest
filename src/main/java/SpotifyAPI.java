@@ -9,6 +9,7 @@ import com.google.common.util.concurrent.SettableFuture;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistRequest;
 import com.wrapper.spotify.methods.ArtistSearchRequest;
+import com.wrapper.spotify.methods.CurrentUserRequest;
 import com.wrapper.spotify.methods.RelatedArtistsRequest;
 import com.wrapper.spotify.methods.TopTracksRequest;
 import com.wrapper.spotify.models.Artist;
@@ -16,6 +17,7 @@ import com.wrapper.spotify.models.AuthorizationCodeCredentials;
 import com.wrapper.spotify.models.Image;
 import com.wrapper.spotify.models.Page;
 import com.wrapper.spotify.models.Track;
+import com.wrapper.spotify.models.User;
 
 public abstract class SpotifyAPI {
 	public static String clientId = "8f526368adb74b40851687a5e02a6903";
@@ -170,4 +172,21 @@ public abstract class SpotifyAPI {
         return null;
     }
 
+    public static User getCurrentUser(String accessToken){ 
+    	final Api api = Api.builder()
+            .clientId(clientId)
+            .clientSecret(clientSecret)
+            .redirectURI(redirectUri).accessToken(accessToken)
+            .build();
+    	final CurrentUserRequest request = api.getMe().build();
+    	  
+    	try {
+    	   final User user = request.get();
+    	   return user;
+    	
+    	} catch (Exception e) {
+    	   System.out.println("Something went wrong!" + e.getMessage());
+    	}
+    	return null;
+    }
 }

@@ -1,9 +1,22 @@
 package main.java.databasetables;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class TArtists {
 	private String artist_name;
 	private String spotify_artist_id;
+	private Set<TRatings> ratings;
+
 	
+	public Set<TRatings> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Set<TRatings> ratings) {
+		this.ratings = ratings;
+	}
+
 	public TArtists(){}
 	
 	public String getArtist_name() {

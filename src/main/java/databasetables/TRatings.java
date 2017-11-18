@@ -6,6 +6,25 @@ public class TRatings {
 	private String user_id;
 	private String rating_id;
 	
+	
+	private TUsers user;
+	public TUsers getUser() {
+		return user;
+	}
+
+	public void setUser(TUsers user) {
+		this.user = user;
+	}
+	private TArtists artist;
+	
+	public TArtists getArtist() {
+		return artist;
+	}
+
+	public void setArtist(TArtists artist) {
+		this.artist = artist;
+	}
+
 	public TRatings(){}
 	
 	public int getRating() {

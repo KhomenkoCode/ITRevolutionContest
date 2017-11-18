@@ -12,11 +12,11 @@ public abstract class SpotifyAPI {
 	public static String clientId = "8f526368adb74b40851687a5e02a6903";
 	public static String clientSecret = "fd3bf08af0da4c2a974d37a16b2e2237";
 	public static String redirectUri = "http://localhost:8080/ITRevolutionContest/";
-
+	static Api api = null;
 	public static String getUserAccessToken(String code) {
 		String accessToken = "";
 
-		final Api api = Api.builder().clientId(clientId).clientSecret(clientSecret).redirectURI(redirectUri).build();
+		api = Api.builder().clientId(clientId).clientSecret(clientSecret).redirectURI(redirectUri).build();
 
 		/*
 		 * Make a token request. Asynchronous requests are made with the
@@ -64,5 +64,7 @@ public abstract class SpotifyAPI {
 		}
 		return accessToken;
 	}
+	
+	
 
 }

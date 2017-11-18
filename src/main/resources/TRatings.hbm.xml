@@ -12,5 +12,13 @@
     <property column="artist_id" name="artist_id" type="java.lang.String"/>
     <property column="rating" name="rating" type="java.lang.Integer"/>
 
+
+	<many-to-one name="user" class="main.java.databasetables.TUsers" fetch="select">
+            <column name="user_id" not-null="true" />
+        </many-to-one>
+        
+    <many-to-one name="artist" class="main.java.databasetables.TArtists" fetch="select">
+            <column name="artist_id" not-null="true" />
+        </many-to-one>
   </class>
 </hibernate-mapping>

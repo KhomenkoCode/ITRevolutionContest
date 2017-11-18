@@ -10,6 +10,7 @@ import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistSearchRequest;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.AuthorizationCodeCredentials;
+import com.wrapper.spotify.models.Image;
 import com.wrapper.spotify.models.Page;
 
 public abstract class SpotifyAPI {
@@ -98,5 +99,31 @@ public abstract class SpotifyAPI {
 		return searchRequest;
 
 	}
+
+	/*public static String getArtistInfo(String artistsNameBase62, String accessToken) {
+		final Api api = Api.builder()
+				.clientId(clientId)
+				.clientSecret(clientSecret)
+				.redirectURI(redirectUri).accessToken(accessToken)
+				.build();
+		//final Artist request = api.getArtist(artistsNameBase62).build();
+		final Artist request = api.getArtist("0LcJLqbBmaGUft1e9Mm8HV").build();
+
+		try {
+			final Artist artist = request.get();
+
+			System.out.println("This artist's name is " + artist.getName());
+
+			// Print URLs to the artist's images
+			final List<Image> images = artist.getImages();
+			for (Image image : images) {
+				System.out.println(image.getUrl());
+			}
+
+		} catch (Exception e) {
+			System.out.println("Something went wrong!" + e.getMessage());
+		}
+
+	}*/
 
 }

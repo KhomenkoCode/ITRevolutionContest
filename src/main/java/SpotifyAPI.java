@@ -56,12 +56,12 @@ public abstract class SpotifyAPI {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		if (accessToken == "400")
 			return null;
+		}
 		return accessToken;
 	}
 

@@ -28,6 +28,15 @@ public class IndexPageServlet extends HttpServlet {
 		} else {
 			String accessToken = SpotifyAPI.getUserAccessToken(code);
 			
+			if(accessToken == null)
+			{	
+				request.setAttribute("clientID", SpotifyAPI.clientId);
+				request.setAttribute("redirectLink", SpotifyAPI.redirectUri);
+				response.setContentType("text/html");
+				RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("/indexPage.jsp");
+				dispatcher.forward(request, response);
+				return;
+			}
 			Cookie newCookie = new Cookie("code", code);
 		    newCookie.setPath(request.getContextPath());
 		    response.addCookie(newCookie);
@@ -35,6 +44,8 @@ public class IndexPageServlet extends HttpServlet {
 		    newCookie = new Cookie("accessToken", accessToken);
 		    newCookie.setPath(request.getContextPath());
 		    response.addCookie(newCookie);
+		    response.sendRedirect("main");
+		    return;
 		}
 		response.setContentType("text/html");
 		RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("/indexPage.jsp");

@@ -74,29 +74,27 @@ public abstract class SpotifyAPI {
 		return accessToken;
 	}
 
-	public static String getArtists(String searchRequest, String accessToken) {
+	public static List<Artist> getArtists(String searchRequest, String accessToken) {
 		final Api api = Api.builder()
 				  .clientId(clientId)
 				  .clientSecret(clientSecret)
 				  .redirectURI(redirectUri).accessToken(accessToken)
 				  .build();
 		ArtistSearchRequest request = api.searchArtists(searchRequest).market("US").limit(10).build();
-
+		List<Artist> artists = null;
 		try {
 			final Page<Artist> artistSearchResult = request.get();
-			final List<Artist> artists = artistSearchResult.getItems();
+			artists = artistSearchResult.getItems();
 
-			System.out.println("I've found " + artistSearchResult.getTotal() + " artists!");
-
-			for (Artist artist : artists) {
-				System.out.println(artist.getName());
-			}
-
+			System.out.println("I've found " + artistSearchResult.getTotal() + " artists! Search request: "+searchRequest);
+			
+			if(artistSearchResult.getTotal() == 0)
+				return null;
+			
 		} catch (Exception e) {
 			System.out.println("Something went wrong!" + e.getMessage());
 		}
-		return searchRequest;
-
+		return artists;
 	}
 
 }

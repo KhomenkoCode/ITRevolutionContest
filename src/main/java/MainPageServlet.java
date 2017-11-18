@@ -1,6 +1,7 @@
 package main.java;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.wrapper.spotify.models.Artist;
 
 /**
  * Servlet implementation class MainPageServlet
@@ -48,7 +51,9 @@ public class MainPageServlet extends HttpServlet {
 			response.sendRedirect("main");
 			return;
 		}
-		SpotifyAPI.getArtists(request.getParameter("artist"), accessToken);
+		List<Artist> artists = SpotifyAPI.getArtists(request.getParameter("artist"), accessToken);
+		request.setAttribute("artists", artists);
+		
 		response.setContentType("text/html");
 		RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("/spotifyArtistsSearchPage.jsp");
 		dispatcher.forward(request, response);

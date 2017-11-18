@@ -46,13 +46,14 @@
 	height:200pt;"><img src="${artists.get(numOfelem).getImages().get(0).getUrl()}"
 					style="height:200pt;"></div> </a>
 				</td>
+				<td style="width:20pt"> </td>
 				<td>
 				<table>
-					<tr><td>
+					<tr><td align="left" style="height:20pt;">
 				<a href="artist?artist=${artists.get(numOfelem).getId()}">${artists.get(numOfelem).getName()}</a>
 				</td></tr>
 				<c:forEach var="numOfelem2" begin="0" end="2" step="1">
-					<tr><td>
+					<tr><td align="left">
 					
 					<iframe
 						src="https://open.spotify.com/embed?uri=${topTracksByArtists.get(numOfelem).get(numOfelem2).getUri()}"

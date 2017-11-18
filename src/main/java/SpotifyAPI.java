@@ -149,7 +149,7 @@ public abstract class SpotifyAPI {
                 .clientSecret(clientSecret)
                 .redirectURI(redirectUri).accessToken(accessToken)
                 .build();
-        final RelatedArtistsRequest request = api.getArtistRelatedArtists("0qeei9KQnptjwb8MgkqEoy").build();
+        final RelatedArtistsRequest request = api.getArtistRelatedArtists(artistsNameBase62).build();
 
         try {
 

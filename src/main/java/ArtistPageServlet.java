@@ -52,16 +52,15 @@ public class ArtistPageServlet extends HttpServlet {
             request.setAttribute("artist", artist);
             List<Artist> rel_art = SpotifyAPI.getRelatedArtists(searchedArtist, accessToken);
             request.setAttribute("rel_art", rel_art);
+            List<Track> topTracksOfCurrArtist = SpotifyAPI.getTopTracks(accessToken,searchedArtist);
+
+            request.setAttribute("topTracksByArtists", topTracksOfCurrArtist);
+
         }
         else {
             response.sendRedirect("main");
             return;
         }
-
-
-
-
-
         response.setContentType("text/html");
         RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("/spotifyArtistOverview.jsp");
         dispatcher.forward(request, response);

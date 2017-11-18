@@ -44,27 +44,44 @@
         <tr>
             <th class="tg-yw4l"><a href="artist?artist=${artist.getId()}"><br>
                 <div style="float:left; overflow:hidden; position:relative; width:200pt;
-	height:200pt;"><img class="img-responsive" src="${artist.getImages().get(0).getUrl()}"
-                        style="height:200pt;"></div> </a></th>
-            <th class="tg-yw4l" valign="top" >
+	height:200pt;"><img class="img-responsive img-rounded" src="${artist.getImages().get(0).getUrl()}"
+                        style="height:200pt;"></div></a>
+                <br>
+                <br>
+                <c:if test="${not empty rel_art}">
+                    <br>
+                    <br><b style="color: green">Related Artist:</b><br>
+                    <c:forEach var="rel_art_el" items="${rel_art}">
+                        <a href="artist?artist=${rel_art_el.getId()}">${rel_art_el.getName()}</a><br>
+                    </c:forEach>
+                </c:if>
+
+            </th>
+            <th class="tg-yw4l" valign="top" style="padding-left:25px">
                 <h1 class="lead" align="center">${artist.getName()}</h1>
+                <br>
+                <c:if test="${not empty artist.getGenres()}"><b style="color: green">Artist`s genres: </b>
+                    <c:forEach var="genre" items="${artist.getGenres()}">
+                            <b style="color:goldenrod">  ${genre},</b>
+                    </c:forEach>
+                </c:if>
+                <div align="center">
+                <c:forEach var="numOfelem2" begin="0" end="5" step="1">
+                    <br>
+            <iframe
+                    ${topTracksByArtists.get(numOfelem2).getUri()}
+                    src="https://open.spotify.com/embed?uri=${topTracksByArtists.get(numOfelem2).getUri()}"
+                    width="300" height="80" frameborder="0" allowtransparency="true" align="middle"></iframe><br>
+
+        </c:forEach>
+                </div>
             </th>
         </tr>
         <tr>
-            <td class="tg-yw4l"><h1>Generes</h1>
-                <c:if test="${not empty artist.getGenres()}">
-
-                    <c:forEach var="genre" items="${artist.getGenres()}">
-                        <div>
-                            <p>${genre}</p>
-                        </div>
-                    </c:forEach>
-                </c:if></td>
             <td class="tg-yw4l">
-                Related Artist:
-                <c:forEach var="rel_art_el" items="${rel_art}">
-                <a href="artist?artist=${rel_art_el.getId()}">${rel_art_el.getName()}</a>
-                </c:forEach>
+
+            <td class="tg-yw4l">
+
             </td>
         </tr>
     </table>

@@ -55,8 +55,9 @@ public class MainPageServlet extends HttpServlet {
 			return;
 		}
 		List<Artist> artists = SpotifyAPI.getArtists(request.getParameter("artist"), accessToken);
-		request.setAttribute("artists", artists);
+		
 		if (artists != null) {
+			request.setAttribute("artists", artists);
 			List<List<Track>> topTracksByArtists = new ArrayList<List<Track>>();
 			Iterator<Artist> artistsIter = artists.iterator();
 			while (artistsIter.hasNext()) {

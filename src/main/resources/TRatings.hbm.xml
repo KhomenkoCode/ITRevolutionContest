@@ -8,16 +8,9 @@
     <id column="rating_id" name="rating_id" type="java.lang.Long">
       <generator class="increment"/>
     </id>
-    <property column="search_req_last" name="lastQuestion" type="java.lang.String"/>
-    <property column="chat_id" name="chatId" type="java.math.BigInteger"/>
-    <property column="last_name" name="lastName" type="java.lang.String"/>
-    <property column="first_name" name="firstName" type="java.lang.String"/>
-    <property column="user_step" name="stepOfTheLastQuestion" type="java.lang.Integer"/>
-     <property column="joined_on_utc" name="dateTimeOfLastJoin" type="java.sql.Timestamp"/>
-    <set name="requests">
-      <key column="id"/>
-      <one-to-many class="RequestToBot"/>
-    </set>
+    <property column="user_id" name="user_id" type="java.lang.String"/>
+    <property column="artist_id" name="artist_id" type="java.lang.String"/>
+    <property column="rating" name="rating" type="java.lang.Integer"/>
 
   </class>
 </hibernate-mapping>

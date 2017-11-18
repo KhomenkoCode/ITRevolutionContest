@@ -46,9 +46,10 @@ public class ArtistPageServlet extends HttpServlet {
 
         if (searchedArtist!=null) {
             Artist artist = SpotifyAPI.getArtistInfo(searchedArtist, accessToken);
-            request.setAttribute("artists", artist);
+            request.setAttribute("artist", artist);
 
         }
+
 
 
         response.setContentType("text/html");

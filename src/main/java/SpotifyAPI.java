@@ -115,8 +115,12 @@ public abstract class SpotifyAPI {
 
             // Print URLs to the artist's images
             final List<Image> images = artist.getImages();
-            for (Image image : images) {
+           /* for (Image image : images) {
                 System.out.println(image.getUrl());
+            }*/
+            List<String> genres = artist.getGenres();
+            for (String genre : genres) {
+                System.out.println(genre);
             }
 
             return artist;

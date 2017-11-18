@@ -3,6 +3,7 @@ package main.java;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,13 @@ public class IndexPageServlet extends HttpServlet {
 		super();
 
 	}
-
+	
+	public void init(ServletConfig config) throws ServletException {
+	    super.init(config);
+	    System.out.println("Hibernate starting...");
+	    HibernateUtil hbm = new HibernateUtil();
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

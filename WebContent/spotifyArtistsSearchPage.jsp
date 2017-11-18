@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div style="margin-top: 20pt;">
-		<div class="col-lg-6" style="width:100%;">
+		<div class="col-lg-6" style="width: 100%;">
 			<div class="input-group">
 				<form method="post">
 					<span class="input-group-btn"> <input type="text"
@@ -32,13 +32,39 @@
 			</div>
 
 		</div>
-	</div><br>
+	</div>
+	<br>
 	<div style="margin-top: 20pt;">
-		<c:forEach var="artist" items="${artists}">
+
+		<table style="margin-left:30pt;">
 			
-			<a href="artist?artist=${artist.getId()}"><br><img src="${artist.getImages().get(0).getUrl()}" style="height:150pt;">
-			<br>${artist.getName()}<br></a>
-		</c:forEach>
+			<c:forEach var="numOfelem" begin="0" end="${artists.size()-1}"
+				step="1">
+				<tr style="padding:10pt;">
+				<td><a href="artist?artist=${artists.get(numOfelem).getId()}"><br>
+					<div style="float:left; overflow:hidden; position:relative; width:200pt;
+	height:200pt;"><img src="${artists.get(numOfelem).getImages().get(0).getUrl()}"
+					style="height:200pt;"></div> </a>
+				</td>
+				<td>
+				<table>
+					<tr><td>
+				<a href="artist?artist=${artists.get(numOfelem).getId()}">${artists.get(numOfelem).getName()}</a>
+				</td></tr>
+				<c:forEach var="numOfelem2" begin="0" end="2" step="1">
+					<tr><td>
+					
+					<iframe
+						src="https://open.spotify.com/embed?uri=${topTracksByArtists.get(numOfelem).get(numOfelem2).getUri()}"
+						width="300" height="80" frameborder="0" allowtransparency="true"></iframe><br>
+					</td></tr>
+				</c:forEach>
+				
+					</table>
+				</td>
+				</tr>
+			</c:forEach>
+		</table>
 	</div>
 
 </body>

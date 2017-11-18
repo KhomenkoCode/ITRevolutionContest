@@ -1,6 +1,8 @@
 package main.java;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wrapper.spotify.models.Artist;
+import com.wrapper.spotify.models.Track;
 
 /**
  * Servlet implementation class MainPageServlet
@@ -19,45 +22,58 @@ import com.wrapper.spotify.models.Artist;
 @WebServlet("/main")
 public class MainPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-    public MainPageServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public MainPageServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		response.setContentType("text/html");
 		RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("/mainPage.jsp");
 		dispatcher.forward(request, response);
-		
+
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		Cookie[] cookies = request.getCookies();
 		String accessToken = null;
-		
+
 		if (cookies != null) {
-		 for (Cookie cookie : cookies) {
-		   if (cookie.getName().equals("accessToken")) {
-			   accessToken = cookie.getValue();
-		    }
-		  }
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("accessToken")) {
+					accessToken = cookie.getValue();
+				}
+			}
 		}
-		if(accessToken == null){
+		if (accessToken == null) {
 			response.sendRedirect("main");
 			return;
 		}
 		List<Artist> artists = SpotifyAPI.getArtists(request.getParameter("artist"), accessToken);
 		request.setAttribute("artists", artists);
-
-		response.setContentType("text/html");
-		RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("/spotifyArtistsSearchPage.jsp");
-		dispatcher.forward(request, response);
+		if (artists != null) {
+			List<List<Track>> topTracksByArtists = new ArrayList<List<Track>>();
+			Iterator<Artist> artistsIter = artists.iterator();
+			while (artistsIter.hasNext()) {
+				Artist currArtist = artistsIter.next();
+				List<Track> topTracksOfCurrArtist = SpotifyAPI.getTopTracks(accessToken, currArtist.getId());
+				topTracksByArtists.add(topTracksOfCurrArtist);
+			}
+			
+			request.setAttribute("topTracksByArtists", topTracksByArtists);
+		}
 		
+		
+		response.setContentType("text/html");
+		RequestDispatcher dispatcher = (RequestDispatcher) request
+				.getRequestDispatcher("/spotifyArtistsSearchPage.jsp");
+		dispatcher.forward(request, response);
+
 	}
 
 }

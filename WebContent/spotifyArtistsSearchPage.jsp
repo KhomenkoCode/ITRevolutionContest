@@ -35,23 +35,40 @@
 	</div>
 	<br>
 	<div style="margin-top: 20pt;">
-
-		<table style="margin-left:30pt;">
+		
+		<c:choose>
+         <c:when test = "${empty artists}">
+            Sorry, no artists found.
+         </c:when>
+         <c:otherwise>
+            <table style="margin-left:30pt;">
 			
 			<c:forEach var="numOfelem" begin="0" end="${artists.size()-1}"
 				step="1">
 				<tr style="padding:10pt;">
 				<td><a href="artist?artist=${artists.get(numOfelem).getId()}"><br>
 					<div style="float:left; overflow:hidden; position:relative; width:200pt;
-	height:200pt;"><img src="${artists.get(numOfelem).getImages().get(0).getUrl()}"
-					style="height:200pt;"></div> </a>
+	height:200pt;">
+	
+				<c:if test="${artists.get(numOfelem).getImages().size() > 0}">	
+				<img src="${artists.get(numOfelem).getImages().get(0).getUrl()}"style="height:200pt;">
+				</c:if>
+				<c:if test="${artists.get(numOfelem).getImages().size() == 0}">	
+				<img src="static/img/noartistphoto.png"style="height:200pt;">
+				</c:if>
+				
+				</div> </a>
 				</td>
 				<td style="width:20pt"> </td>
 				<td>
 				<table>
-					<tr><td align="left" style="height:20pt;">
+					<tr style="height:30pt;">
+					<td align="left">
 				<a href="artist?artist=${artists.get(numOfelem).getId()}">${artists.get(numOfelem).getName()}</a>
 				</td></tr>
+				
+				<c:choose>
+         <c:when test = "${topTracksByArtists.get(numOfelem).size() > 2}">
 				<c:forEach var="numOfelem2" begin="0" end="2" step="1">
 					<tr><td align="left">
 					
@@ -61,11 +78,32 @@
 					</td></tr>
 				</c:forEach>
 				
+				</c:when>
+				<c:when test = "${topTracksByArtists.get(numOfelem).size() == 0}">
+						<tr><td align="left">
+						<div class="alert alert-warning" role="alert">Sorry, but there no tracks released yet.</div></td></tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="numOfelem2" begin="0" end="${topTracksByArtists.get(numOfelem).size()-1}" step="1">
+					<tr><td align="left">
+					
+					<iframe
+						src="https://open.spotify.com/embed?uri=${topTracksByArtists.get(numOfelem).get(numOfelem2).getUri()}"
+						width="300" height="80" frameborder="0" allowtransparency="true"></iframe><br>
+					
+				</c:forEach>
+				</c:otherwise>
+				</c:choose>
+				</td></tr>
 					</table>
 				</td>
 				</tr>
 			</c:forEach>
 		</table>
+         </c:otherwise>
+      </c:choose>
+		
+		
 	</div>
 
 </body>

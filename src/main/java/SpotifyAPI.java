@@ -9,6 +9,7 @@ import com.google.common.util.concurrent.SettableFuture;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistRequest;
 import com.wrapper.spotify.methods.ArtistSearchRequest;
+import com.wrapper.spotify.methods.RelatedArtistsRequest;
 import com.wrapper.spotify.methods.TopTracksRequest;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.AuthorizationCodeCredentials;
@@ -141,4 +142,32 @@ public abstract class SpotifyAPI {
         }
         return trackSearchResult;
     }
+
+    public static List<Artist> getRelatedArtists(String artistsNameBase62, String accessToken) {
+        final Api api = Api.builder()
+                .clientId(clientId)
+                .clientSecret(clientSecret)
+                .redirectURI(redirectUri).accessToken(accessToken)
+                .build();
+        final RelatedArtistsRequest request = api.getArtistRelatedArtists("0qeei9KQnptjwb8MgkqEoy").build();
+
+        try {
+
+            final List<Artist> artists = request.get();
+
+            if (artists.isEmpty()) {
+                System.out.println("Didn't find any similar artists!");
+            } else {
+                System.out.println("The related artists are:");
+                for (Artist artist : artists) {
+                    System.out.println(artist.getName());
+                }
+            }
+            return artists;
+        } catch (Exception e) {
+            System.out.println("Something went wrong!" + e.getMessage());
+        }
+        return null;
+    }
+
 }

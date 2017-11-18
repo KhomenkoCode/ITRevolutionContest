@@ -1,8 +1,11 @@
 package main.java;
 
 import com.wrapper.spotify.models.Artist;
+import com.wrapper.spotify.models.Track;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -47,8 +50,15 @@ public class ArtistPageServlet extends HttpServlet {
         if (searchedArtist!=null) {
             Artist artist = SpotifyAPI.getArtistInfo(searchedArtist, accessToken);
             request.setAttribute("artist", artist);
-
+            List<Artist> rel_art = SpotifyAPI.getRelatedArtists(searchedArtist, accessToken);
+            request.setAttribute("rel_art", rel_art);
         }
+        else {
+            response.sendRedirect("main");
+            return;
+        }
+
+
 
 
 
@@ -60,8 +70,38 @@ public class ArtistPageServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        Cookie[] cookies = request.getCookies();
+        String accessToken = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("accessToken")) {
+                    accessToken = cookie.getValue();
+                }
+            }
+        }
+        if (accessToken == null) {
+            response.sendRedirect("main");
+            return;
+        }
+        List<Artist> artists = SpotifyAPI.getArtists(request.getParameter("artist"), accessToken);
+        request.setAttribute("artists", artists);
+        if (artists != null) {
+            List<List<Track>> topTracksByArtists = new ArrayList<List<Track>>();
+            Iterator<Artist> artistsIter = artists.iterator();
+            while (artistsIter.hasNext()) {
+                Artist currArtist = artistsIter.next();
+                List<Track> topTracksOfCurrArtist = SpotifyAPI.getTopTracks(accessToken, currArtist.getId());
+                topTracksByArtists.add(topTracksOfCurrArtist);
+            }
+
+            request.setAttribute("topTracksByArtists", topTracksByArtists);
+        }
+
+
         response.setContentType("text/html");
-        RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("/spotifyArtistsSearchPage.jsp");
+        RequestDispatcher dispatcher = (RequestDispatcher) request
+                .getRequestDispatcher("/spotifyArtistsSearchPage.jsp");
         dispatcher.forward(request, response);
 
     }

@@ -25,34 +25,75 @@
 </head>
 <body >
 <div class="container">
-    <div class="col-lg-6">
-        <div class="input-group">
-            <form method="post">
+    <div style="margin-top: 20pt;">
+        <div class="col-lg-6" style="width: 100%;">
+            <div class="input-group">
+                <form method="post">
 					<span class="input-group-btn"> <input type="text"
                                                           name="artist" placeholder="Search artist" class="form-control"
                                                           style="width: 250%;"> <input type="submit"
                                                                                        class="btn btn-default" value="Submit">
 					</span>
-            </form>
-        </div>
+                </form>
+            </div>
 
+        </div>
     </div>
-    <div class="row">
-        <div class="col-md-6"><p class="lead">${artist.getName()}</p></div>
+    <br>
+    <table class="tg" style="border: 0;">
+        <tr>
+            <th class="tg-yw4l"><a href="artist?artist=${artist.getId()}"><br>
+                <div style="float:left; overflow:hidden; position:relative; width:200pt;
+	height:200pt;"><img class="img-responsive" src="${artist.getImages().get(0).getUrl()}"
+                        style="height:200pt;"></div> </a></th>
+            <th class="tg-yw4l" valign="top" >
+                <h1 class="lead" align="center">${artist.getName()}</h1>
+            </th>
+        </tr>
+        <tr>
+            <td class="tg-yw4l"><h1>Generes</h1>
+                <c:if test="${not empty artist.getGenres()}">
+
+                    <c:forEach var="genre" items="${artist.getGenres()}">
+                        <div>
+                            <p>${genre}</p>
+                        </div>
+                    </c:forEach>
+                </c:if></td>
+            <td class="tg-yw4l">
+                Related Artist:
+                <c:forEach var="rel_art_el" items="${rel_art}">
+                <a href="artist?artist=${rel_art_el.getId()}">${rel_art_el.getName()}</a>
+                </c:forEach>
+            </td>
+        </tr>
+    </table>
+
+    <%--<div class="col-md-6"><p class="lead">${artist.getName()}</p></div>
         <div class="col-md-6"><img src="${artist.getImages().get(0).getUrl()}"  width="200" height="200">
-           <%-- <c:if test="${not empty artist.getGenres()}">--%>
+
+
+            <c:if test="${not empty artist.getGenres()}">
+
                 <c:forEach var="genre" items="${artist.getGenres()}">
                     <div>
                     <p>${genre}</p>
                     </div>
                 </c:forEach>
-         <%--   </c:if>--%>
+            </c:if>
 
         </div>
 
-    </div>
+    </div>--%>
 
+<%--<c:forEach var="numOfelem2"  begin="0" end="2" step="1">
+    <tr><td align="left">
 
+        <iframe
+                src="https://open.spotify.com/embed?uri=${topTracksByArtists.get(numOfelem).get(numOfelem2).getUri()}"
+                width="300" height="80" frameborder="0" allowtransparency="true"></iframe><br>
+    </td></tr>
+</c:forEach>--%>
 
 
 

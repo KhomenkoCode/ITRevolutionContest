@@ -3,7 +3,7 @@ $(document).ready(function () {
         if ($("#r1").attr("checked")) {
             /*$('#r1edit:input').removeAttr('disabled');*/
 
-            //GET TO ENDPOINT
+            //POST TO ENDPOINT
             reqest (user_id,artist_id,rating)
         }
 

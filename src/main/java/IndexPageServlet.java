@@ -1,5 +1,7 @@
 package main.java;
 
+import com.wrapper.spotify.models.User;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -49,6 +51,12 @@ public class IndexPageServlet extends HttpServlet {
 		    response.addCookie(newCookie);
 			
 		    newCookie = new Cookie("accessToken", accessToken);
+			User user = SpotifyAPI.getCurrentUser(accessToken);
+			if (user!=null){
+				newCookie = new Cookie("user_id", user.getId());
+                newCookie.setPath(request.getContextPath());
+                response.addCookie(newCookie);
+			}
 		    newCookie.setPath(request.getContextPath());
 		    response.addCookie(newCookie);
 		    response.sendRedirect("main");

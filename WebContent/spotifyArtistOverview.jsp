@@ -70,6 +70,23 @@
             </th>
             <th class="tg-yw4l" valign="top" style="padding-left:25px">
                 <h1 class="lead" align="center" style="padding-left:25px">${artist.getName()}</h1>
+
+                <br>
+
+                <c:choose>
+                    <c:when  test="${average_rating_on_reviews!=0.0}">
+                        <h2 class="lead" align="center" style="padding-left:25px"> Average Rating:  ${average_rating_on_reviews}</h2>
+                        <br>
+                    </c:when>
+                    <c:otherwise>
+                        <h2 class="lead" align="center" style="padding-left:25px">No rating provided yet, be the first!</h2>
+                        <br>
+                    </c:otherwise>
+                </c:choose>
+                <%--<c:if test="${average_rating_on_reviews!=0.0}">
+
+                </c:if>--%>
+                <div  align="center" style="vertical-align: middle;padding-left:25px;">
                 <form method="post" accept-charset="utf-8">
                     <table>
                         <tr style="vertical-align: middle;">
@@ -94,7 +111,7 @@
                         </tr>
                     </table>
                 </form>
-
+                </div>
                 <h2 class="lead" align="center" style="padding-left:25px">Popularity index: ${artist.getPopularity()}</h2>
                 <br>
                 <c:if test="${not empty artist.getGenres()}"><b style="color: green">Artist`s genres: </b>

@@ -57,6 +57,10 @@ public class ArtistPageServlet extends HttpServlet {
             List<Track> topTracksOfCurrArtist = SpotifyAPI.getTopTracks(accessToken,searchedArtist);
 
             request.setAttribute("topTracksByArtists", topTracksOfCurrArtist);
+            double averageRating =  RatingDAO.calculateAverageRate(artist.getId());
+            System.out.println(averageRating);
+            request.setAttribute("average_rating_on_reviews", averageRating);
+
 
         }
         else {
@@ -105,6 +109,7 @@ public class ArtistPageServlet extends HttpServlet {
                     SpotifyAPI.getArtistInfo(request.getParameter("artist"),accessToken),
                     givenRating);
             doGet(request,response);
+            return;
         }
 
         System.out.println(request.getParameter("artist_post"));

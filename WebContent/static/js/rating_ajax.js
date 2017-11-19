@@ -1,6 +1,12 @@
 $(document).ready(function () {
     $("input[name=star]:radio").change(function () {
+        console.log(
+            "here 1"
+        );
         if ($("#star-1").attr("checked")) {
+            console.log(
+                "here 2"
+            );
             /*$('#r1edit:input').removeAttr('disabled');*/
             var artist_id = $.urlParam('artist');
             console.log(artist_id);

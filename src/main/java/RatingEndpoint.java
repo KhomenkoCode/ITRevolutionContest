@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "RatingEndpoint")
+@WebServlet(name = "RatingEndpoint",urlPatterns = "/rating")
 public class RatingEndpoint extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.setStatus(HttpServletResponse.SC_OK);
 
     }
 

@@ -51,14 +51,15 @@ public class IndexPageServlet extends HttpServlet {
 		    response.addCookie(newCookie);
 			
 		    newCookie = new Cookie("accessToken", accessToken);
+            newCookie.setPath(request.getContextPath());
+            response.addCookie(newCookie);
 			User user = SpotifyAPI.getCurrentUser(accessToken);
 			if (user!=null){
 				newCookie = new Cookie("user_id", user.getId());
                 newCookie.setPath(request.getContextPath());
                 response.addCookie(newCookie);
 			}
-		    newCookie.setPath(request.getContextPath());
-		    response.addCookie(newCookie);
+
 		    response.sendRedirect("main");
 		    return;
 		}

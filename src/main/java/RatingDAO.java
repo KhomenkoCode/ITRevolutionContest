@@ -52,8 +52,7 @@ public abstract class RatingDAO {
         session.save(artist);
         
         TRatings rate = new TRatings();
-        rate.setArtist_id(currArtist.getId());
-        rate.setUser_id(currUser.getId());
+        //
         rate.setRating(rating);
         session.save(rate);
         

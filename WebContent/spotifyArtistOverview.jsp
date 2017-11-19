@@ -28,25 +28,22 @@
 </head>
 <body >
 <div class="container">
-    <div style="margin-top: 20pt;">
-        <div class="col-lg-6" style="width: 100%;">
-            <div class="input-group">
-                <form method="post">
+    <div style="margin-top: 20pt;margin-left: 20%; margin-right: 30% ">
+        <div class="input-group">
+            <form method="post">
 					<span class="input-group-btn"> <input type="text"
                                                           name="artist_post" placeholder="Search artist" class="form-control"
                                                           style="width: 250%;"> <input type="submit"
                                                                                        class="btn btn-default" value="Submit">
 					</span>
-                </form>
-            </div>
-
+            </form>
         </div>
     </div>
     <br>
     <table class="tg" style="border: 0;">
         <tr>
             <th class="tg-yw4l"><a href="artist?artist=${artist.getId()}"><br>
-                <div style="float:left; overflow:hidden; position:relative; width:200pt;
+                <div style="float:left; overflow:hidden; position:relative; width:200pt; margin-bottom: 10px;
 	height:200pt;"><img class="img-responsive img-rounded" src=
     <c:choose>
     <c:when test="${artist.getImages().size() == 0}">
@@ -55,13 +52,12 @@
     <c:otherwise>
                     ${artist.getImages().get(0).getUrl()}
     </c:otherwise>
-</c:choose>
-                        style="height:200pt;"></div></a>
+</c:choose> style="height:200pt;"></div></a>
                 <br>
                 <br>
                 <c:if test="${not empty rel_art}">
                     <br>
-                    <br><b style="color: green">Related Artist:</b><br>
+                    <br><b style="color: green;">Related Artist:</b><br>
                     <c:forEach var="rel_art_el" items="${rel_art}">
                         <a href="artist?artist=${rel_art_el.getId()}">${rel_art_el.getName()}</a><br>
                     </c:forEach>
@@ -69,7 +65,7 @@
 
             </th>
             <th class="tg-yw4l" valign="top" style="padding-left:25px">
-                <h1 class="lead" align="center" style="padding-left:25px">${artist.getName()}</h1>
+                <h1 class="lead" align="center" style="padding-left:25px; font-size: x-large">${artist.getName()}</h1>
 
                 <br>
 
@@ -114,7 +110,7 @@
                 </div>
                 <h2 class="lead" align="center" style="padding-left:25px">Popularity index: ${artist.getPopularity()}</h2>
                 <br>
-                <c:if test="${not empty artist.getGenres()}"><b style="color: green">Artist`s genres: </b>
+                <c:if test="${not empty artist.getGenres()}"><b style="color: green; padding-left: 25px">Artist`s genres: </b>
                     <c:forEach var="genre" items="${artist.getGenres()}">
                             <b style="color:goldenrod">,  ${genre}</b>
                     </c:forEach>

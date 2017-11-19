@@ -29,8 +29,8 @@
 
 								<div class="inner cover">
 								
-									<h1 class="cover-heading">Ratings for Spotify Artist</h1>
-									<p >Simple way to discover new music and artists based on our revolutionary rating system</p>
+									<h1 class="cover-heading">Search for music and rate it!</h1>
+									<p >Simple way to discover new music and artists based on ratings from users.</p>
 									<p class="lead">Hey, we need to authenticate you through Spotify.</p>
 									<p class="lead">
 										<a

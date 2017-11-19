@@ -60,6 +60,7 @@ public abstract class RatingDAO {
 	static void setRating(User currUser, Artist currArtist, int rating) {
 		List<TRatings> a = getRating(currUser.getId(), currArtist.getId());
 		if (a.size() != 0) {
+		    System.out.println(a.size());
 			deleteRateInfo(currUser, currArtist, rating, a.get(0).getRating_id());
 		}
 		Session session = HibernateUtil.getSessionFactory().openSession();

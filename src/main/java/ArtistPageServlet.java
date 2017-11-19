@@ -2,6 +2,7 @@ package main.java;
 
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.Track;
+import com.wrapper.spotify.models.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -91,6 +92,21 @@ public class ArtistPageServlet extends HttpServlet {
             response.sendRedirect("main");
             return;
         }
+        if(request.getParameter("star")!=null){
+            int givenRating = Integer.parseInt(request.getParameter("star"));
+            System.out.println(String.valueOf(givenRating));
+            String sd = request.getParameter("artist");
+            System.out.println(sd);
+            User user = SpotifyAPI.getCurrentUser(accessToken);
+            System.out.println("User" + user.getId());
+            Artist artist = SpotifyAPI.getArtistInfo(request.getParameter("artist"),accessToken);
+            System.out.println("Artist" + artist.getId());
+            RatingDAO.setRating(SpotifyAPI.getCurrentUser(accessToken),
+                    SpotifyAPI.getArtistInfo(request.getParameter("artist"),accessToken),
+                    givenRating);
+            doGet(request,response);
+        }
+
         System.out.println(request.getParameter("artist_post"));
         List<Artist> artists = SpotifyAPI.getArtists(request.getParameter("artist_post"), accessToken);
 
@@ -106,7 +122,6 @@ public class ArtistPageServlet extends HttpServlet {
 
             request.setAttribute("topTracksByArtists", topTracksByArtists);
         }
-
 
         response.setContentType("text/html");
         RequestDispatcher dispatcher = (RequestDispatcher) request

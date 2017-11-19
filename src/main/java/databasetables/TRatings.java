@@ -7,11 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Generated;
@@ -22,6 +25,8 @@ public class TRatings implements Serializable {
 	@Id
 	@Column(name = "rating_id", columnDefinition = "serial")
 	@Generated(GenerationTime.INSERT)
+	@SequenceGenerator(name = "trating_rating_id_seq", sequenceName = "trating_rating_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.AUTO, generator = "trating_rating_id_seq")
 	private int rating_id;
 	private int rating;
 	private String artist_id;

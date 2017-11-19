@@ -16,7 +16,9 @@
     <property name="hibernate.connection.ssl">true</property>
     <property name="hibernate.connection.sslfactory">org.postgresql.ssl.NonValidatingFactory</property>
     <property name="hibernate.enable_lazy_load_no_trans">true</property>
-
+<mapping class="main.java.databasetables.TArtists" />
+<mapping class="main.java.databasetables.TRatings" />
+<mapping class="main.java.databasetables.TUsers" />
   </session-factory>
   
 </hibernate-configuration>

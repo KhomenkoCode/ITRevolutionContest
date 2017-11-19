@@ -34,14 +34,13 @@
 		</div>
 	</div>
 	<div class="col-lg-12" style="margin-top: 20pt;">
-		<table>
+		
 		<c:forEach var="artist" items="${ratedArtists}">
-		<tr>
+		<div style="float:left;"><table  style="min-width:300pt;"><tr>
 		<td>
  			<a href="artist?artist=${artists.get(numOfelem).getId()}"><br>
  			<div style="float:left; overflow:hidden; position:relative; width:60pt;
 	height:60pt;">
-				
 				<c:if test="${artist.key.getImages().size() > 0}">	
 				<img src="${artist.key.getImages().get(0).getUrl()}"style="height:60pt;">
 				</c:if>
@@ -54,16 +53,19 @@
  			<td>
  			<table>
  			<tr><td>
- 				<a href="artist?artist=${artist.key.getId()}" style="size:20pt;">${artist.key.getName()}</a>
+ 				<a href="artist?artist=${artist.key.getId()}" style="font-size:14pt;">${artist.key.getName()}</a>
  			</td></tr>
  			<tr><td>
  				Average Rate: ${artist.value}
  			</td></tr>
  			</table>
  			</td>	
- 			</tr>	
+ 			<td style="width:40pt;"></td>
+ 			<td>
+ 			</tr>	</table>
+ 			</div>
 		</c:forEach>
-		</table>
+		
 	</div>
 </body>
 </html>

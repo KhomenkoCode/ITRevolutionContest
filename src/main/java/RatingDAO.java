@@ -14,17 +14,16 @@ import main.java.databasetables.*;
 import main.java.HibernateUtil;
 
 public abstract class RatingDAO {
-	
-	static List<TRatings> getRatings(String currUserID, String artistID){
-		
+
+	static List<TRatings> getRatings(String artistID) {
+
 		Session session = null;
 		List<TRatings> rating = null;
 		try {
 			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
-			Query query = session
-					.createQuery(" from main.java.databasetables.TRatings r" + " where r.user_id = :uid and r.artist_id = :aid")
-					.setParameter("uid", currUserID).setParameter("aid", artistID);
+			Query query = session.createQuery(" from main.java.databasetables.TRatings r" + " where r.artist_id = :aid")
+					.setParameter("aid", artistID);
 			rating = query.list();
 			session.getTransaction().commit();
 		} finally {
@@ -32,33 +31,58 @@ public abstract class RatingDAO {
 				session.close();
 			}
 		}
-		
+
 		return rating;
 	}
-	
-	static void setRating(User currUser, Artist currArtist, int rating){
-		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-         
-        TUsers usr = new TUsers();
-        usr.setUser_id(currUser.getId());
-        usr.setUsername(currUser.getDisplayName());
-        session.save(usr);
-        
-        TArtists artist = new TArtists();
-        artist.setSpotify_artist_id(currArtist.getId());
-        artist.setArtist_name(currArtist.getName());
-        session.save(artist);
-        
-        TRatings rate = new TRatings();
-        //
-        rate.setRating(rating);
-        session.save(rate);
-        
-        
- 
-        //Commit the transaction
-        session.getTransaction().commit();
+
+	static List<TRatings> getRating(String currUserID, String artistID) {
+
+		Session session = null;
+		List<TRatings> rating = null;
+		try {
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			Query query = session
+					.createQuery(" from main.java.databasetables.TRatings r"
+							+ " where r.artist_id = :aid and r.user_id = :uid")
+					.setParameter("aid", artistID).setParameter("uid", currUserID);
+			rating = query.list();
+			session.getTransaction().commit();
+		} finally {
+			if (session != null && session.isOpen()) {
+				session.close();
+			}
+		}
+
+		return rating;
 	}
+
+	static void setRating(User currUser, Artist currArtist, int rating) {
+		List<TRatings> a = getRating(currUser.getId(), currArtist.getId());
+		if (a.size() != 0) {
+			deleteRateInfo(currUser, currArtist, rating, a.get(0).getRating_id());
+		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+
+		TRatings rate = new TRatings();
+		rate.setArtist_id(currArtist.getId());
+		rate.setUser_id(currUser.getId());
+		rate.setRating(rating);
+		session.save(rate);
+
+		// Commit the transaction
+		session.getTransaction().commit();
+	}
+
+	static void deleteRateInfo(User currUser, Artist currArtist, int rating, int id){
+		 Session session = HibernateUtil.getSessionFactory().openSession(); 
+		 session.beginTransaction();
+		 TRatings oldRait = session.get(TRatings.class, id);
+		 session.delete(oldRait);
+		 session.flush();
+		 session.getTransaction().commit();
+	}
+	
+	
 }

@@ -12,44 +12,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Title</title>
+<title>SearchResults</title>
 <link href="static/css/bootstrap.min.css" rel="stylesheet">
 <link href="static/css/cover.css" rel="stylesheet">
 <link rel="shortcut icon" type="image/png" href="static/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-	<div style="margin-top: 20pt;">
-		<div class="col-lg-6" style="width: 100%;">
-			<div class="input-group">
-				<form method="post">
+	<div style="margin-top: 20pt;margin-left: 25%; margin-right: 30% ">
+        <div class="input-group">
+            <form method="post">
 					<span class="input-group-btn"> <input type="text"
-						name="artist" placeholder="Search artist" class="form-control"
-						style="width: 250%;"> <input type="submit"
-						class="btn btn-default" value="Submit">
+                                                          name="artist" placeholder="Search artist" class="form-control"
+                                                          style="width: 250%;"> <input type="submit"
+                                                                                       class="btn btn-default" value="Submit">
 					</span>
-				</form>
-			</div>
-
-		</div>
+            </form>
+        </div>
 	</div>
 	<br>
-	<div style="margin-top: 20pt;">
+	<div style="margin-top: 20pt; margin-left: 20%; margin-right: 25%;" >
 		
 		<c:choose>
          <c:when test = "${empty artists}">
             Sorry, no artists found.
          </c:when>
          <c:otherwise>
-            <table style="margin-left:30pt;">
+            <table style="margin-left:10%;">
 			
 			<c:forEach var="numOfelem" begin="0" end="${artists.size()-1}"
 				step="1">
-				<tr style="padding:10pt;">
+				<tr style="margin:10pt;">
 				<td><a href="artist?artist=${artists.get(numOfelem).getId()}"><br>
 					<div style="float:left; overflow:hidden; position:relative; width:200pt;
 	height:200pt;">
-	
 				<c:if test="${artists.get(numOfelem).getImages().size() > 0}">	
 				<img src="${artists.get(numOfelem).getImages().get(0).getUrl()}"style="height:200pt;">
 				</c:if>
@@ -61,10 +57,10 @@
 				</td>
 				<td style="width:20pt"> </td>
 				<td>
-				<table>
+				<table style="margin: 5%;">
 					<tr style="height:30pt;">
 					<td align="left">
-				<a href="artist?artist=${artists.get(numOfelem).getId()}">${artists.get(numOfelem).getName()}</a>
+				<a class="lead" href="artist?artist=${artists.get(numOfelem).getId()}">${artists.get(numOfelem).getName()}</a>
 				</td></tr>
 				
 				<c:choose>

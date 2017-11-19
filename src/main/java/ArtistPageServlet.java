@@ -73,11 +73,17 @@ public class ArtistPageServlet extends HttpServlet {
 
         Cookie[] cookies = request.getCookies();
         String accessToken = null;
+        String userId = null;
 
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("accessToken")) {
                     accessToken = cookie.getValue();
+                }
+            }
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("user_id")) {
+                    userId = cookie.getValue();
                 }
             }
         }

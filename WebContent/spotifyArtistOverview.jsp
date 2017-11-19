@@ -74,7 +74,7 @@
                     <table>
                         <tr style="vertical-align: middle;">
                             <td>
-                                <div class="stars" class="form-group" align="center" >
+                                <div class="stars" class="form-group" >
                                     <input class="star star-5" id="star-5" type="radio" required
                                            name="star" value="5" /> <label class="star star-5" for="star-5"></label>
                                     <input class="star star-4" id="star-4" type="radio" required
@@ -95,7 +95,7 @@
                     </table>
                 </form>
 
-                <h2 class="lead" align="center" style="padding-left:25px">${artist.getPopularity()}</h2>
+                <h2 class="lead" align="center" style="padding-left:25px">Popularity index: ${artist.getPopularity()}</h2>
                 <br>
                 <c:if test="${not empty artist.getGenres()}"><b style="color: green">Artist`s genres: </b>
                     <c:forEach var="genre" items="${artist.getGenres()}">

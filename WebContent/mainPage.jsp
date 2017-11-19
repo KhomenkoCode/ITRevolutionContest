@@ -34,11 +34,11 @@
 		</div>
 	</div>
 	<div class="col-lg-12" style="margin-top: 20pt;">
-		
+		<center><h1>Recently rated artists</h1></center>
 		<c:forEach var="artist" items="${ratedArtists}">
-		<div style="float:left;"><table  style="min-width:300pt;"><tr>
+		<div style="float:left; margin: 10pt; background-color:#5e5e5e;"><table  style="min-width:290pt;"><tr>
 		<td>
- 			<a href="artist?artist=${artists.get(numOfelem).getId()}"><br>
+ 			<a href="artist?artist=${artists.get(numOfelem).getId()}">
  			<div style="float:left; overflow:hidden; position:relative; width:60pt;
 	height:60pt;">
 				<c:if test="${artist.key.getImages().size() > 0}">	

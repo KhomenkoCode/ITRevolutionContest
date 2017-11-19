@@ -28,16 +28,8 @@
 </head>
 <body >
 <div class="container">
-    <div style="margin-top: 20pt;margin-left: 20%; margin-right: 30% ">
-        <div class="input-group">
-            <form method="post">
-					<span class="input-group-btn"> <input type="text"
-                                                          name="artist_post" placeholder="Search artist" class="form-control"
-                                                          style="width: 250%;"> <input type="submit"
-                                                                                       class="btn btn-default" value="Submit">
-					</span>
-            </form>
-        </div>
+    <div style="margin-top: 10pt; margin-left: 10%; margin-right: 80% ">
+        <a class="btn btn-primary" href="main" role="button">Back to Search</a>
     </div>
     <br>
     <table class="tg" style="border: 0;">
@@ -65,7 +57,7 @@
 
             </th>
             <th class="tg-yw4l" valign="top" style="padding-left:25px">
-                <h1 class="lead" align="center" style="padding-left:25px; font-size: x-large">${artist.getName()}</h1>
+                <h1 class="lead" align="center" style="padding-left:25px; font-size: 280%">${artist.getName()}</h1>
 
                 <br>
 

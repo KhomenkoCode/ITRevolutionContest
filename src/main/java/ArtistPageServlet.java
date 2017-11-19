@@ -112,8 +112,8 @@ public class ArtistPageServlet extends HttpServlet {
             return;
         }
 
-        System.out.println(request.getParameter("artist_post"));
-        List<Artist> artists = SpotifyAPI.getArtists(request.getParameter("artist_post"), accessToken);
+        System.out.println(request.getParameter("artist"));
+        List<Artist> artists = SpotifyAPI.getArtists(request.getParameter("artist"), accessToken);
 
         if (artists != null) {
             request.setAttribute("artists", artists);

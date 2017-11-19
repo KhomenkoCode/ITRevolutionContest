@@ -2,8 +2,10 @@ package main.java;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,7 +34,35 @@ public class MainPageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		Cookie[] cookies = request.getCookies();
+		String accessToken = null;
 
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("accessToken")) {
+					accessToken = cookie.getValue();
+				}
+			}
+		}
+		if (accessToken == null) {
+			response.sendRedirect("index");
+			return;
+		}
+		
+		Map<String, String> RatedArtistsInfo = RatingDAO.getMapOfRatedArtistsIdAndAverageRates();
+		if(RatedArtistsInfo != null)
+		{
+			Map<Artist, String> RatedArtistsFullInfo = new HashMap<Artist, String>();
+			for (Map.Entry<String, String> entry : RatedArtistsInfo.entrySet())
+			{
+				Artist currArtist = SpotifyAPI.getArtistInfo(entry.getKey(), accessToken);
+				RatedArtistsFullInfo.put(currArtist, entry.getValue());
+			}
+			
+			request.setAttribute("ratedArtists", RatedArtistsFullInfo);
+		}
+		
 		response.setContentType("text/html");
 		RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("/mainPage.jsp");
 		dispatcher.forward(request, response);

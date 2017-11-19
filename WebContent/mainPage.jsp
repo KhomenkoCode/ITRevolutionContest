@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div style="margin-top:20pt;">
-		<div class="col-lg-6">
+		<div class="col-lg-6" style="width: 100%;">
 			<div class="input-group">
 				<form method="post">
 					<span class="input-group-btn"> <input type="text"
@@ -32,6 +32,44 @@
 			</div>
 
 		</div>
+	</div>
+	<div class="col-lg-12" style="margin-top:20pt;">
+		ratedArtists
+		
+		<c:choose>
+         <c:when test = "${empty ratedArtists}">
+            <h1>Sorry, we can't find any artists rate.</h1>
+         </c:when>
+         <c:otherwise>
+            <table style="margin-left:30pt;">
+			
+				<c:forEach items="${ratedArtists}" var="artist"></c:forEach>
+				<tr style="padding:10pt;">
+				<td><a href="artist?artist=${artist.getKey().getId()}"><br>
+					<div style="float:left; overflow:hidden; position:relative; width:200pt;
+	height:200pt;">
+	
+				<c:if test="${artist.getKey().getImages().size() > 0}">	
+				<img src="${artist.getKey().getImages().get(0).getUrl()}"style="height:200pt;">
+				</c:if>
+				<c:if test="${artist.getKey().getImages().size() == 0}">	
+				<img src="static/img/noartistphoto.png"style="height:200pt;">
+				</c:if>
+				</div> </a>
+				</td>
+				<td style="width:20pt"> </td>
+				<td>
+				<table>
+					<tr style="height:30pt;">
+					<td align="left">
+				<a href="artist?artist=${artist.getKey().getId()}">${artist.getKey().getName()}</a>
+				</td></tr>
+				</table>
+				</td>
+				</tr>
+				</table>
+				</c:otherwise>
+				</c:choose>
 	</div>
 </body>
 </html>

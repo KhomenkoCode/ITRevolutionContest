@@ -2,7 +2,9 @@ package main.java;
 
 import main.java.databasetables.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -30,7 +32,33 @@ public abstract class RatingDAO {
 		return (result/rates.size());
 	}
 	
-	//static List<String> getListOfRated
+	static Map<String, String> getMapOfRatedArtistsIdAndAverageRates(){
+		Session session = null;
+		List<TRatings> rating = null;
+		try {
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			Query query = session.createQuery(" from main.java.databasetables.TRatings r");
+			rating = query.list();
+			session.getTransaction().commit();
+		} finally {
+			if (session != null && session.isOpen()) {
+				session.close();
+			}
+		}
+		
+		if(rating.size() == 0)
+			return null;
+		
+		Map<String, String> listOfRatedArtistsId = new HashMap<String, String>();
+		for(int i=0; i<rating.size(); i++)
+		{
+			String currentArtistId = rating.get(i).getArtist_id();
+			listOfRatedArtistsId.put(currentArtistId, Float.toString(calculateAverageRate(currentArtistId)));
+		}
+		
+		return listOfRatedArtistsId;
+	}
 	
 	static List<TRatings> getRatings(String artistID) {
 
@@ -80,6 +108,7 @@ public abstract class RatingDAO {
 		    System.out.println(a.size());
 			deleteRateInfo(currUser, currArtist, rating, a.get(0).getRating_id());
 		}
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 

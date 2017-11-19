@@ -61,11 +61,10 @@ public class MainPageServlet extends HttpServlet {
 		if (artists != null) {
 			request.setAttribute("artists", artists);
 			
-			//RatingDAO.setRating(SpotifyAPI.getCurrentUser(accessToken), artists.get(0), 10);
+			RatingDAO.setRating(SpotifyAPI.getCurrentUser(accessToken), artists.get(0), 5);
 			//List<TRatings> rateList = RatingDAO.getRatings(SpotifyAPI.getCurrentUser(accessToken).getId(), artists.get(0).getId());
-			
-			//System.out.println(rateList.size());
-			
+			List<TRatings> rateList = RatingDAO.getRating(SpotifyAPI.getCurrentUser(accessToken).getId(), artists.get(0).getId());
+			System.out.println(rateList.get(0).getRating());
 			List<List<Track>> topTracksByArtists = new ArrayList<List<Track>>();
 			Iterator<Artist> artistsIter = artists.iterator();
 			while (artistsIter.hasNext()) {

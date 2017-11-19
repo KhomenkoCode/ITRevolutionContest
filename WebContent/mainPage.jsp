@@ -21,11 +21,11 @@
 <body>
 	<div style="margin-top: 20pt;">
 		<div class="col-lg-6" style="width: 100%;">
-			<div class="input-group">
+			<div class="input-group" style="margin-left:25%;">
 				<form method="post">
 					<span class="input-group-btn"> <input type="text"
 						name="artist" placeholder="Search artist" class="form-control"
-						style="width: 250%;"> <input type="submit"
+						style="width: 200%;"> <input type="submit"
 						class="btn btn-default" value="Submit">
 					</span>
 				</form>
@@ -39,8 +39,7 @@
 		<div style="float:left; margin: 10pt; background-color:#5e5e5e;"><table  style="min-width:290pt;"><tr>
 		<td>
  			<a href="artist?artist=${artists.get(numOfelem).getId()}">
- 			<div style="float:left; overflow:hidden; position:relative; width:60pt;
-	height:60pt;">
+ 			<div style="float:left; overflow:hidden; position:relative; width:60pt; height:60pt;">
 				<c:if test="${artist.key.getImages().size() > 0}">	
 				<img src="${artist.key.getImages().get(0).getUrl()}"style="height:60pt;">
 				</c:if>

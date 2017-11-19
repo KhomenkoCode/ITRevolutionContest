@@ -14,7 +14,24 @@ import main.java.databasetables.*;
 import main.java.HibernateUtil;
 
 public abstract class RatingDAO {
+	
+	static float calculateAverageRate(String artistID){
 
+		float result = 0f;
+		List<TRatings> rates = getRatings(artistID);
+		
+		if(rates.size() == 0)
+			return 0;
+		
+		for(int i=0; i<rates.size();i++){
+			result += rates.get(i).getRating();
+		}
+		
+		return (result/rates.size());
+	}
+	
+	//static List<String> getListOfRated
+	
 	static List<TRatings> getRatings(String artistID) {
 
 		Session session = null;
@@ -84,6 +101,7 @@ public abstract class RatingDAO {
 		 session.flush();
 		 session.getTransaction().commit();
 	}
+	
 	
 	
 }
